@@ -67,7 +67,7 @@ class WDSNRL_Network_Admin extends WDSNRL_Admin_Base {
 	protected function fields() {
 		return array(
 			array(
-				'before' => '<style type="text/css" media="screen">.cmb2-id-enable-network-wide .cmb-td {padding: 24px 0;}</style>',
+				'before' => '<style type="text/css" media="screen">.cmb-type-checkbox .cmb-td {padding-top: 24px;}</style>',
 				'name'   => __( 'Require login network-wide', 'wds-network-require-login' ),
 				'desc'   => __( 'This can be overridden at the site level.', 'wds-network-require-login' ),
 				'id'     => 'enable_network_wide',
