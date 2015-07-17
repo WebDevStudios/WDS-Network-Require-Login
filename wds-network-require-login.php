@@ -308,7 +308,7 @@ class WDS_Network_Require_Login {
 	/**
 	 * Adds a notice to the dashboard if the plugin requirements are not met
 	 *
-	 * @since  <%= version %>
+	 * @since  0.1.0
 	 * @return null
 	 */
 	public function requirements_not_met_notice() {
