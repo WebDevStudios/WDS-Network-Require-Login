@@ -195,11 +195,10 @@ class WDS_Network_Require_Login {
 		}
 
 		// Option to override saved setting for just the wp rest api
-		if ( ! apply_filters( 'wds_network_require_login_for_rest_api', $this->admin->is_required() ) ) {
-			return;
+		if ( apply_filters( 'wds_network_require_login_for_rest_api', $this->admin->is_required() ) ) {
+			$this->auth_redirect();
 		}
 
-		$this->auth_redirect();
 	}
 
 	/**
