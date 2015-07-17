@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WDS Network Require Login Network Admin
+ * WDS Network Require Login Admin Base
  * @version 0.1.0
  * @package WDS Network Require Login
  */
@@ -133,22 +133,6 @@ abstract class WDSNRL_Admin_Base {
 	 * @return array Array of CMB2 field config arrays
 	 */
 	abstract protected function fields();
-
-	/**
-	 * Replaces get_option with get_site_option
-	 * @since  0.1.0
-	 */
-	public function _get_override( $test, $default = false ) {
-		return get_site_option( $this->key, $default );
-	}
-
-	/**
-	 * Replaces update_option with update_site_option
-	 * @since  0.1.0
-	 */
-	public function _update_override( $test, $option_value ) {
-		return update_site_option( $this->key, $option_value );
-	}
 
 	/**
 	 * Wrapper function around cmb2_get_option

@@ -1,16 +1,16 @@
 <?php
 /**
-* Plugin Name: WDS Network Require Login
-* Plugin URI:  http://webdevstudios.com
-* Description: A require-login plugin that can be network-activated as well as overridden on the site level.
-* Version:     0.1.0
-* Author:      WebDevStudios
-* Author URI:  http://webdevstudios.com
-* Donate link: http://webdevstudios.com
-* License:     GPLv2
-* Text Domain: wds-network-require-login
-* Domain Path: /languages
-*/
+ * Plugin Name: WDS Network Require Login
+ * Plugin URI:  http://webdevstudios.com
+ * Description: A require-login plugin that can be network-activated as well as overridden on the site level.
+ * Version:     0.1.0
+ * Author:      WebDevStudios
+ * Author URI:  http://webdevstudios.com
+ * Donate link: http://webdevstudios.com
+ * License:     GPLv2
+ * Text Domain: wds-network-require-login
+ * Domain Path: /languages
+ */
 
 /**
  * Copyright (c) 2015 WebDevStudios (email : contact@webdevstudios.com)
