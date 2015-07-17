@@ -1,0 +1,17 @@
+{
+  "generator-plugin-wp": {
+    "name": "WDS Network Require Login",
+    "homepage": "http://webdevstudios.com",
+    "description": "A require-login plugin that can be network-activated as well as overridden on the site level.",
+    "version": "0.1.0",
+    "author": "WebDevStudios",
+    "authoremail": "contact@webdevstudios.com",
+    "authorurl": "http://webdevstudios.com",
+    "license": "GPLv2",
+    "slug": "wds-network-require-login",
+    "classname": "WDS_Network_Require_Login",
+    "classprefix": "WDSNRL_",
+    "prefix": "wds_nrl",
+    "year": 2015
+  }
+}
