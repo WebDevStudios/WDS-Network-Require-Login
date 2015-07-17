@@ -11,9 +11,9 @@ class WDSNRL_Site_Admin extends WDSNRL_Admin_Base {
 
 	/**
 	 * Network admin object
-	 * @var WDSNRL_Network_Admin
+	 * @var WDSNRL_Network_Admin|false
 	 */
-	protected $network_admin = null;
+	protected $network_admin = false;
 
 	/**
  	 * Option key, and option page slug
@@ -31,8 +31,8 @@ class WDSNRL_Site_Admin extends WDSNRL_Admin_Base {
 	 * Constructor
 	 * @since 0.1.0
 	 */
-	public function __construct( WDSNRL_Network_Admin $network_admin ) {
-		$this->network_admin = $network_admin;
+	public function __construct( $network_admin ) {
+		$this->network_admin = is_a( $network_admin, 'WDSNRL_Network_Admin' ) ? $network_admin : false;
 		parent::__construct( __( 'Require Login Settings', 'wds-network-require-login' ) );
 	}
 
@@ -53,21 +53,40 @@ class WDSNRL_Site_Admin extends WDSNRL_Admin_Base {
 	 * @return array Array of CMB2 field config arrays
 	 */
 	protected function fields() {
+		$options = array(
+			'enabled'  => __( 'Enabled', 'wds-network-require-login' ),
+			'disabled' => __( 'Disabled', 'wds-network-require-login' ),
+		);
+
+		$desc = __( 'Enable or disable login requirement.', 'wds-allow-rest-api' );
+
+		if ( $this->network_admin ) {
+			$options['network_setting'] = sprintf( __( 'Use network level setting (set to <strong>%s</strong>)', 'wds-network-require-login' ), $this->network_setting() );
+			$desc .= ' '. __( 'Will override network level setting.', 'wds-allow-rest-api' );
+		}
+
 		return array(
 			array(
 				'before' => '<style type="text/css" media="screen">.cmb2-id-require .cmb-td {padding: 24px 0;}</style>',
 				'name'    => __( 'Require login', 'wds-network-require-login' ),
-				'desc'    => __( 'Enable or disable login requirement. Will override network level setting.', 'wds-network-require-login' ),
+				'desc'    => $desc,
 				'id'      => 'require',
 				'type'    => 'radio',
-				'default' => 'network_setting',
-				'options' => array(
-					'enabled'  => __( 'Enabled', 'wds-network-require-login' ),
-					'disabled' => __( 'Disabled', 'wds-network-require-login' ),
-					'network_setting' => sprintf( __( 'Use network level setting (set to <strong>%s</strong>)', 'wds-network-require-login' ), $this->network_setting() ),
-				),
+				'default' => array( $this, 'get_default' ),
+				'options' => $options,
 			),
 		);
+	}
+
+	/**
+	 * Get default value for our setting
+	 *
+	 * @since  0.1.0
+	 *
+	 * @return string Default value
+	 */
+	public function get_default() {
+		return $this->network_admin ? 'network_setting' : 'disabled';
 	}
 
 	/**
@@ -114,7 +133,11 @@ class WDSNRL_Site_Admin extends WDSNRL_Admin_Base {
 			return false;
 		}
 
-		return (bool) $this->network_admin->get_option( 'enable_network_wide' );
+		if ( $this->network_admin ) {
+			return (bool) $this->network_admin->get_option( 'enable_network_wide' );
+		}
+
+		return false;
 	}
 
 }

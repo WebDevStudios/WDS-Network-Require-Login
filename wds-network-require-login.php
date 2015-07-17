@@ -148,9 +148,11 @@ class WDS_Network_Require_Login {
 	 * @return  null
 	 */
 	function plugin_classes() {
-		require_once $this->path . 'includes/network-admin.php';
-		// Attach other plugin classes to the base plugin class.
-		$this->network_admin = new WDSNRL_Network_Admin();
+		if ( is_multisite() ) {
+			require_once $this->path . 'includes/network-admin.php';
+			// Attach other plugin classes to the base plugin class.
+			$this->network_admin = new WDSNRL_Network_Admin();
+		}
 
 		require_once $this->path . 'includes/site-admin.php';
 		// Attach other plugin classes to the base plugin class.
@@ -167,7 +169,11 @@ class WDS_Network_Require_Login {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'get_header', array( $this, 'maybe_auth_redirect' ) );
 		add_action( 'rest_api_init', array( $this, 'rest_maybe_auth_redirect' ) );
-		$this->network_admin->hooks();
+
+		if ( is_multisite() ) {
+			$this->network_admin->hooks();
+		}
+
 		$this->admin->hooks();
 	}
 
@@ -279,7 +285,7 @@ class WDS_Network_Require_Login {
 	 */
 	public static function meets_requirements() {
 		// Plugin requires multisite & CMB2
-		return is_multisite() && defined( 'CMB2_LOADED' );
+		return defined( 'CMB2_LOADED' );
 	}
 
 	/**
@@ -313,7 +319,7 @@ class WDS_Network_Require_Login {
 	public function requirements_not_met_notice() {
 		// Output our error
 		echo '<div id="message" class="error">';
-		echo '<p>' . sprintf( __( 'WDS Network Require Login is meant for a WordPress multisite installations, and requires the <a href="https://wordpress.org/plugins/cmb2/">CMB2 plugin</a>, so it has been <a href="%s">deactivated</a>.', 'wds-network-require-login' ), admin_url( 'plugins.php' ) ) . '</p>';
+		echo '<p>' . sprintf( __( 'WDS Network Require Login requires the <a href="https://wordpress.org/plugins/cmb2/">CMB2 plugin</a>, so it has been <a href="%s">deactivated</a>.', 'wds-network-require-login' ), admin_url( 'plugins.php' ) ) . '</p>';
 		echo '</div>';
 	}
 
