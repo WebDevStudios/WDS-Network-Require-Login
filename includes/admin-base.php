@@ -62,6 +62,7 @@ abstract class WDSNRL_Admin_Base {
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( $this->admin_menu_hook, array( $this, 'add_options_page' ) );
 		add_action( 'cmb2_init', array( $this, 'add_options_page_metabox' ) );
+		add_action( 'cmb2_after_init', array( $this, 'save_fields' ), 11 );
 	}
 
 	/**
@@ -111,10 +112,11 @@ abstract class WDSNRL_Admin_Base {
 	function add_options_page_metabox() {
 
 		$cmb = new_cmb2_box( array(
-			'id'         => $this->metabox_id,
-			'hookup'     => false,
-			'cmb_styles' => false,
-			'show_on'    => array(
+			'id'          => $this->metabox_id,
+			'hookup'      => false,
+			'cmb_styles'  => false,
+			'save_fields' => false,
+			'show_on'     => array(
 				// These are important, don't remove
 				'key'   => 'options-page',
 				'value' => array( $this->key, )
@@ -123,6 +125,31 @@ abstract class WDSNRL_Admin_Base {
 
 		foreach ( $this->fields() as $field ) {
 			$cmb->add_field( $field );
+		}
+	}
+
+	/**
+	 * Save fields earlier in the load order (cmb2_after_init)
+	 *
+	 * @since  0.1.0
+	 *
+	 * @return null
+	 */
+	public function save_fields() {
+		// Retrieve the CMB2 instance
+		$cmb = cmb2_get_metabox( $this->metabox_id );
+
+		// Save the metabox if it's been submitted
+		// check permissions
+		if (
+			$cmb
+			// check nonce
+			&& isset( $_POST['submit-cmb'], $_POST['object_id'], $_POST[ $cmb->nonce() ] )
+			&& wp_verify_nonce( $_POST[ $cmb->nonce() ], $cmb->nonce() )
+			&& $_POST['object_id'] == $this->key
+		) {
+			$cmb->object_type( 'options-page' );
+			$cmb->save_fields( $this->key, $cmb->object_type(), $_POST );
 		}
 	}
 
