@@ -14,6 +14,8 @@ A require-login plugin that can be network-activated as well as overridden on th
 
 Settings can be found under the Network Settings menu as well as the site-level Settings menu.
 
+Requires [CMB2](https://github.com/WebDevStudios/CMB2).
+
 ## Installation ##
 
 ### Manual Installation ###
