@@ -14,6 +14,8 @@ A require-login plugin that can be network-activated as well as overridden on th
 
 Settings can be found under the Network Settings menu as well as the site-level Settings menu.
 
+If you want more control over the login requirement for the [WP-API](http://wp-api.org/), the [WDS Allow REST API](https://github.com/WebDevStudios/WDS-Allow-REST-API) plugin is built to complement this one, where you can separately require or not require login for the read-only portion of the REST API or even set an authorization header key/token pair which can be used to bypass the login requirement. 
+
 Requires [CMB2](https://github.com/WebDevStudios/CMB2).
 
 ## Installation ##
