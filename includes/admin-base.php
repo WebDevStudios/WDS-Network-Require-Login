@@ -59,10 +59,12 @@ abstract class WDSNRL_Admin_Base {
 	 * @since 0.1.0
 	 */
 	public function hooks() {
-		add_action( 'admin_init', array( $this, 'init' ) );
-		add_action( $this->admin_menu_hook, array( $this, 'add_options_page' ) );
-		add_action( 'cmb2_init', array( $this, 'add_options_page_metabox' ) );
-		add_action( 'cmb2_after_init', array( $this, 'save_fields' ), 11 );
+		if ( is_admin() ) {
+			add_action( 'admin_init', array( $this, 'init' ) );
+			add_action( $this->admin_menu_hook, array( $this, 'add_options_page' ) );
+			add_action( 'cmb2_init', array( $this, 'add_options_page_metabox' ) );
+			add_action( 'cmb2_after_init', array( $this, 'save_fields' ), 11 );
+		}
 	}
 
 	/**
