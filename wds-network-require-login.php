@@ -278,7 +278,7 @@ class WDS_Network_Require_Login {
 		// Ok, do our redirect
 		add_filter( 'login_url', array( $this, 'add_our_login_url_filter' ), 10, 3 );
 		auth_redirect();
-		remove_filter( 'login_url', array( $this, 'add_our_login_url_filter' ), 10, 3 );
+		remove_filter( 'login_url', array( $this, 'add_our_login_url_filter' ), 10 );
 	}
 
 	/**
