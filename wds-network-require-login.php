@@ -113,6 +113,13 @@ class WDS_Network_Require_Login {
 	protected static $single_instance = null;
 
 	/**
+	 * The requested path.
+	 *
+	 * @var string
+	 */
+	protected $requested_path;
+
+	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since  0.1.0
@@ -132,13 +139,25 @@ class WDS_Network_Require_Login {
 	 * @since  0.1.0
 	 */
 	protected function __construct() {
-		$this->basename    = plugin_basename( __FILE__ );
-		$this->url         = plugin_dir_url( __FILE__ );
-		$this->path        = plugin_dir_path( __FILE__ );
-		$this->current_url = self::get_url();
+		$this->basename       = plugin_basename( __FILE__ );
+		$this->url            = plugin_dir_url( __FILE__ );
+		$this->path           = plugin_dir_path( __FILE__ );
+		$this->current_url    = self::get_url();
+		$this->requested_path = $this->get_requested_path();
 
 		$this->plugin_classes();
 		$this->hooks();
+	}
+
+	/**
+	 * Get the currently requested path.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return string The requested path.
+	 */
+	protected function get_requested_path() {
+		return parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) ?: '';
 	}
 
 	/**
