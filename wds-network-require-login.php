@@ -152,17 +152,6 @@ class WDS_Network_Require_Login {
 	}
 
 	/**
-	 * Get the currently requested path.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @return string The requested path.
-	 */
-	protected function get_requested_path() {
-		return parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) ?: '';
-	}
-
-	/**
 	 * Attach other plugin classes to the base plugin class.
 	 *
 	 * @since 0.1.0
@@ -318,6 +307,17 @@ class WDS_Network_Require_Login {
 		$url .= $_SERVER['REQUEST_URI'];
 
 		return $url;
+	}
+
+	/**
+	 * Get the currently requested path.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return string The requested path.
+	 */
+	protected function get_requested_path() {
+		return parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) ?: '';
 	}
 
 	/**
