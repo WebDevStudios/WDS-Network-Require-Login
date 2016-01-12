@@ -250,15 +250,6 @@ class WDS_Network_Require_Login {
 	 * @return null
 	 */
 	public function auth_redirect() {
-		/**
-		 * Filter the whitelist for the requested URL.
-		 *
-		 * @since 0.1.0
-		 *
-		 * @param array $whitelist The array of URLs to whitelist.
-		 */
-		$whitelist   = apply_filters( 'wds_network_require_login_whitelist', array() );
-		$whitelisted = in_array( $this->current_url, $whitelist );
 
 		/**
 		 * Filter the whitelist for the requested path.
@@ -268,12 +259,26 @@ class WDS_Network_Require_Login {
 		 * @param array $whitelist The array of paths to whitelist.
 		 */
 		$path_whitelist   = apply_filters( 'wds_network_require_login_path_whitelist', array() );
-		$path_whitelisted = in_array( $this->requested_path, $path_whitelist );
+		if ( in_array( $this->requested_path, $path_whitelist ) ) {
+			return;
+		}
 
-		$curr_url    = preg_replace( '/\?.*/', '', $this->current_url );
-		$login_url   = preg_replace( '/\?.*/', '', wp_login_url() );
+		/**
+		 * Filter the whitelist for the requested URL.
+		 *
+		 * @since 0.1.0
+		 *
+		 * @param array $whitelist The array of URLs to whitelist.
+		 */
+		$whitelist   = apply_filters( 'wds_network_require_login_whitelist', array() );
+		if ( in_array( $this->current_url, $whitelist ) ) {
+			return;
+		}
 
-		if ( $login_url == $curr_url || $whitelisted || $path_whitelisted ) {
+		// If this is the login URL, don't redirect.
+		$curr_url  = preg_replace( '/\?.*/', '', $this->current_url );
+		$login_url = preg_replace( '/\?.*/', '', wp_login_url() );
+		if ( $login_url == $curr_url ) {
 			return;
 		}
 
