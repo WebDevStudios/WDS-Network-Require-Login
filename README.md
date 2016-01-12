@@ -33,5 +33,10 @@ Requires [CMB2](https://github.com/WebDevStudios/CMB2).
 
 ## Changelog ##
 
+### 0.2.0 ###
+* Added `wds_network_require_login_path_whitelist` filter
+* Added a method to determine the requested path.
+* Added inline documentation for the `wds_network_require_login_whitelist` filter.
+
 ### 0.1.0 ###
 * First release
