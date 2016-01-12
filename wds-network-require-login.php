@@ -3,7 +3,7 @@
  * Plugin Name: WDS Network Require Login
  * Plugin URI:  http://webdevstudios.com
  * Description: A require-login plugin that can be network-activated as well as overridden on the site level.
- * Version:     0.1.0
+ * Version:     0.2.0
  * Author:      WebDevStudios
  * Author URI:  http://webdevstudios.com
  * Donate link: http://webdevstudios.com
