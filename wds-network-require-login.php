@@ -89,6 +89,15 @@ class WDS_Network_Require_Login {
 	protected $current_url = '';
 
 	/**
+	 * The requested path.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @var string
+	 */
+	protected $requested_path;
+
+	/**
 	 * Instance of WDSNRL_Network_Admin
 	 *
 	 * @var WDSNRL_Network_Admin
@@ -111,15 +120,6 @@ class WDS_Network_Require_Login {
 	 * @since  0.1.0
 	 */
 	protected static $single_instance = null;
-
-	/**
-	 * The requested path.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @var string
-	 */
-	protected $requested_path;
 
 	/**
 	 * Creates or returns an instance of this class.
