@@ -248,6 +248,13 @@ class WDS_Network_Require_Login {
 	 * @return null
 	 */
 	public function auth_redirect() {
+		/**
+		 * Filter the whitelist for the requested URL.
+		 *
+		 * @since 0.1.0
+		 *
+		 * @param array $whitelist The array of URLs to whitelist.
+		 */
 		$whitelist   = apply_filters( 'wds_network_require_login_whitelist', array() );
 		$whitelisted = in_array( $this->current_url, $whitelist );
 
