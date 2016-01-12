@@ -251,10 +251,20 @@ class WDS_Network_Require_Login {
 		$whitelist   = apply_filters( 'wds_network_require_login_whitelist', array() );
 		$whitelisted = in_array( $this->current_url, $whitelist );
 
+		/**
+		 * Filter the whitelist for the requested path.
+		 *
+		 * @since 0.2.0
+		 *
+		 * @param array $whitelist The array of paths to whitelist.
+		 */
+		$path_whitelist   = apply_filters( 'wds_network_require_login_path_whitelist', array() );
+		$path_whitelisted = in_array( $this->requested_path, $path_whitelist );
+
 		$curr_url    = preg_replace( '/\?.*/', '', $this->current_url );
 		$login_url   = preg_replace( '/\?.*/', '', wp_login_url() );
 
-		if ( $login_url == $curr_url || $whitelisted ) {
+		if ( $login_url == $curr_url || $whitelisted || $path_whitelisted ) {
 			return;
 		}
 
