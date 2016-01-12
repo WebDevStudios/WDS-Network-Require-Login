@@ -144,7 +144,7 @@ class WDS_Network_Require_Login {
 		$this->basename       = plugin_basename( __FILE__ );
 		$this->url            = plugin_dir_url( __FILE__ );
 		$this->path           = plugin_dir_path( __FILE__ );
-		$this->current_url    = self::get_url();
+		$this->current_url    = $this->get_url();
 		$this->requested_path = $this->get_requested_path();
 
 		$this->plugin_classes();
@@ -294,7 +294,7 @@ class WDS_Network_Require_Login {
 	 *
 	 * @return string  Current URL (or site_url if server info is not found)
 	 */
-	public static function get_url() {
+	public function get_url() {
 		if ( ! isset( $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI'] ) ) {
 			return site_url();
 		}
