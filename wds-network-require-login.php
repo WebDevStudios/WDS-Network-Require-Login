@@ -115,6 +115,8 @@ class WDS_Network_Require_Login {
 	/**
 	 * The requested path.
 	 *
+	 * @since 0.2.0
+	 *
 	 * @var string
 	 */
 	protected $requested_path;
