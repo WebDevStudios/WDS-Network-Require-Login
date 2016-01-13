@@ -382,6 +382,7 @@ class WDS_Network_Require_Login {
 			case 'url':
 			case 'path':
 			case 'current_url':
+			case 'requested_path':
 			case 'network_admin':
 			case 'admin':
 				return $this->$field;
