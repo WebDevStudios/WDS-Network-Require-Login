@@ -245,9 +245,10 @@ class WDS_Network_Require_Login {
 		 *
 		 * @since 0.2.0
 		 *
-		 * @param array $whitelist The array of paths to whitelist.
+		 * @param array  $whitelist      The array of paths to whitelist.
+		 * @param string $requested_path The requested path.
 		 */
-		$path_whitelist   = apply_filters( 'wds_network_require_login_path_whitelist', array() );
+		$path_whitelist = apply_filters( 'wds_network_require_login_path_whitelist', array(), $this->requested_path );
 		if ( in_array( $this->requested_path, $path_whitelist ) ) {
 			return;
 		}
@@ -257,9 +258,10 @@ class WDS_Network_Require_Login {
 		 *
 		 * @since 0.1.0
 		 *
-		 * @param array $whitelist The array of URLs to whitelist.
+		 * @param array  $whitelist   The array of URLs to whitelist.
+		 * @param string $current_url The current URL.
 		 */
-		$whitelist   = apply_filters( 'wds_network_require_login_whitelist', array() );
+		$whitelist = apply_filters( 'wds_network_require_login_whitelist', array(), $this->current_url );
 		if ( in_array( $this->current_url, $whitelist ) ) {
 			return;
 		}
