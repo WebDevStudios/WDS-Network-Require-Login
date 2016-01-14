@@ -4,7 +4,7 @@ Donate link:       http://webdevstudios.com
 Tags:              multisite, multi-network, network, require login, authentication, access, closed, hidden, login, password, privacy, private, protected, registered only, restricted
 Requires at least: 3.6.0
 Tested up to:      4.3
-Stable tag:        0.1.0
+Stable tag:        0.2.0
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,11 @@ Requires [CMB2](https://github.com/WebDevStudios/CMB2).
 
 
 == Changelog ==
+
+= 0.2.0 =
+* Added `wds_network_require_login_path_whitelist` filter
+* Added a method to determine the requested path.
+* Added inline documentation for the `wds_network_require_login_whitelist` filter.
 
 = 0.1.0 =
 * First release

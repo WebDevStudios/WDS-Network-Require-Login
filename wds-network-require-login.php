@@ -3,7 +3,7 @@
  * Plugin Name: WDS Network Require Login
  * Plugin URI:  http://webdevstudios.com
  * Description: A require-login plugin that can be network-activated as well as overridden on the site level.
- * Version:     0.1.0
+ * Version:     0.2.0
  * Author:      WebDevStudios
  * Author URI:  http://webdevstudios.com
  * Donate link: http://webdevstudios.com
@@ -89,6 +89,15 @@ class WDS_Network_Require_Login {
 	protected $current_url = '';
 
 	/**
+	 * The requested path.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @var string
+	 */
+	protected $requested_path;
+
+	/**
 	 * Instance of WDSNRL_Network_Admin
 	 *
 	 * @var WDSNRL_Network_Admin
@@ -132,10 +141,11 @@ class WDS_Network_Require_Login {
 	 * @since  0.1.0
 	 */
 	protected function __construct() {
-		$this->basename    = plugin_basename( __FILE__ );
-		$this->url         = plugin_dir_url( __FILE__ );
-		$this->path        = plugin_dir_path( __FILE__ );
-		$this->current_url = self::get_url();
+		$this->basename       = plugin_basename( __FILE__ );
+		$this->url            = plugin_dir_url( __FILE__ );
+		$this->path           = plugin_dir_path( __FILE__ );
+		$this->current_url    = $this->get_url();
+		$this->requested_path = $this->get_requested_path();
 
 		$this->plugin_classes();
 		$this->hooks();
@@ -229,20 +239,44 @@ class WDS_Network_Require_Login {
 	 * @return null
 	 */
 	public function auth_redirect() {
-		$whitelist   = apply_filters( 'wds_network_require_login_whitelist', array() );
-		$whitelisted = in_array( $this->current_url, $whitelist );
 
-		$curr_url    = preg_replace( '/\?.*/', '', $this->current_url );
-		$login_url   = preg_replace( '/\?.*/', '', wp_login_url() );
+		/**
+		 * Filter the whitelist for the requested path.
+		 *
+		 * @since 0.2.0
+		 *
+		 * @param array  $whitelist      The array of paths to whitelist.
+		 * @param string $requested_path The requested path.
+		 */
+		$path_whitelist = apply_filters( 'wds_network_require_login_path_whitelist', array(), $this->requested_path, $this->current_url );
+		if ( in_array( $this->requested_path, $path_whitelist ) ) {
+			return;
+		}
 
-		if ( $login_url == $curr_url || $whitelisted ) {
+		/**
+		 * Filter the whitelist for the requested URL.
+		 *
+		 * @since 0.1.0
+		 *
+		 * @param array  $whitelist   The array of URLs to whitelist.
+		 * @param string $current_url The current URL.
+		 */
+		$whitelist = apply_filters( 'wds_network_require_login_whitelist', array(), $this->current_url );
+		if ( in_array( $this->current_url, $whitelist ) ) {
+			return;
+		}
+
+		// If this is the login URL, don't redirect.
+		$curr_url  = preg_replace( '/\?.*/', '', $this->current_url );
+		$login_url = preg_replace( '/\?.*/', '', wp_login_url() );
+		if ( $login_url == $curr_url ) {
 			return;
 		}
 
 		// Ok, do our redirect
 		add_filter( 'login_url', array( $this, 'add_our_login_url_filter' ), 10, 3 );
 		auth_redirect();
-		remove_filter( 'login_url', array( $this, 'add_our_login_url_filter' ), 10, 3 );
+		remove_filter( 'login_url', array( $this, 'add_our_login_url_filter' ), 10 );
 	}
 
 	/**
@@ -262,7 +296,7 @@ class WDS_Network_Require_Login {
 	 *
 	 * @return string  Current URL (or site_url if server info is not found)
 	 */
-	public static function get_url() {
+	public function get_url() {
 		if ( ! isset( $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI'] ) ) {
 			return site_url();
 		}
@@ -275,6 +309,17 @@ class WDS_Network_Require_Login {
 		$url .= $_SERVER['REQUEST_URI'];
 
 		return $url;
+	}
+
+	/**
+	 * Get the currently requested path.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return string The requested path.
+	 */
+	protected function get_requested_path() {
+		return parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) ?: '';
 	}
 
 	/**
@@ -339,6 +384,7 @@ class WDS_Network_Require_Login {
 			case 'url':
 			case 'path':
 			case 'current_url':
+			case 'requested_path':
 			case 'network_admin':
 			case 'admin':
 				return $this->$field;
