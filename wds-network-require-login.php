@@ -248,7 +248,7 @@ class WDS_Network_Require_Login {
 		 * @param array  $whitelist      The array of paths to whitelist.
 		 * @param string $requested_path The requested path.
 		 */
-		$path_whitelist = apply_filters( 'wds_network_require_login_path_whitelist', array(), $this->requested_path );
+		$path_whitelist = apply_filters( 'wds_network_require_login_path_whitelist', array(), $this->requested_path, $this->current_url );
 		if ( in_array( $this->requested_path, $path_whitelist ) ) {
 			return;
 		}
