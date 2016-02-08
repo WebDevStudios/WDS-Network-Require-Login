@@ -346,9 +346,6 @@ class WDS_Network_Require_Login {
 			// Add a dashboard notice
 			add_action( 'all_admin_notices', array( $this, 'requirements_not_met_notice' ) );
 
-			// Deactivate our plugin
-			deactivate_plugins( $this->basename );
-
 			return false;
 		}
 
@@ -362,6 +359,9 @@ class WDS_Network_Require_Login {
 	 * @return null
 	 */
 	public function requirements_not_met_notice() {
+		// Deactivate our plugin
+		deactivate_plugins( $this->basename );
+
 		// Output our error
 		echo '<div id="message" class="error">';
 		echo '<p>' . sprintf( __( 'WDS Network Require Login requires the <a href="https://wordpress.org/plugins/cmb2/">CMB2 plugin</a>, so it has been <a href="%s">deactivated</a>.', 'wds-network-require-login' ), admin_url( 'plugins.php' ) ) . '</p>';
