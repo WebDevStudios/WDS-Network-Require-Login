@@ -178,7 +178,7 @@ class WDS_Network_Require_Login {
 	public function hooks() {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'get_header', array( $this, 'maybe_auth_redirect' ) );
-		add_action( 'rest_api_init', array( $this, 'rest_maybe_auth_redirect' ) );
+		add_filter( 'rest_authentication_errors', array( $this, 'rest_maybe_auth_redirect' ), 50 );
 
 		if ( is_multisite() ) {
 			$this->network_admin->hooks();
