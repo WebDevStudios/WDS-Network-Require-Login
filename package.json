@@ -1,0 +1,31 @@
+{
+    "name": "wds-network-require-login",
+    "version": "0.2.0",
+    "description": "A require-login plugin that can be network-activated as well as overridden on the site level.",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "gulp": "^3.9.1",
+        "gulp-plumber": "^1.1.0",
+        "gulp-sort": "^2.0.0",
+        "gulp-util": "^3.0.7",
+        "gulp-wp-pot": "^1.1.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/WebDevStudios/WDS-Network-Require-Login.git"
+    },
+    "keywords": [
+        "rest",
+        "api"
+    ],
+    "author": "WebDevStudios",
+    "license": "GPL-2.0",
+    "bugs": {
+        "url": "https://github.com/WebDevStudios/WDS-Network-Require-Login/issues"
+    },
+    "homepage": "https://github.com/WebDevStudios/WDS-Network-Require-Login#readme"
+}
