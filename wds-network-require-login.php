@@ -43,7 +43,7 @@
  * @var  string               $url           Plugin URL
  * @var  string               $path          Plugin Path
  * @var  string               $current_url   Current URL
- * @var  WDSNRL_Admin         $admin         WDSNRL_Admin
+ * @var  WDSNRL_Site_Admin    $admin         WDSNRL_Site_Admin
  * @var  WDSNRL_Network_Admin $network_admin WDSNRL_Network_Admin
  */
 class WDS_Network_Require_Login {
@@ -108,7 +108,7 @@ class WDS_Network_Require_Login {
 	/**
 	 * Instance of WDSNRL_Admin
 	 *
-	 * @var WDSNRL_Admin
+	 * @var WDSNRL_Site_Admin
 	 * @since  0.1.0
 	 */
 	protected $admin = null;
