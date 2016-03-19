@@ -51,6 +51,14 @@ msgstr ""
 msgid "Require login"
 msgstr ""
 
+#: includes/site-admin.php:101
+msgid "enabled"
+msgstr ""
+
+#: includes/site-admin.php:102
+msgid "disabled"
+msgstr ""
+
 #: wds-network-require-login.php:367
 msgid "WDS Network Require Login requires the <a href=\"https://wordpress.org/plugins/cmb2/\">CMB2 plugin</a>, so it has been <a href=\"%s\">deactivated</a>."
 msgstr ""
