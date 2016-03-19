@@ -1,0 +1,64 @@
+# Copyright (C) 2016 wds-network-require-login
+# This file is distributed under the same license as the wds-network-require-login package.
+msgid ""
+msgstr ""
+"Project-Id-Version: wds-network-require-login\n"
+"Report-Msgid-Bugs-To: https://github.com/WebDevStudios/WDS-Network-Require-Login/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+
+#: includes/admin-base.php:54
+msgid "Require Login"
+msgstr ""
+
+#: includes/network-admin.php:35
+msgid "Require Login Network Settings"
+msgstr ""
+
+#: includes/network-admin.php:71
+msgid "Require login network-wide"
+msgstr ""
+
+#: includes/network-admin.php:72
+msgid "This can be overridden at the site level."
+msgstr ""
+
+#: includes/site-admin.php:36
+msgid "Require Login Settings"
+msgstr ""
+
+#: includes/site-admin.php:57
+msgid "Enabled"
+msgstr ""
+
+#: includes/site-admin.php:58
+msgid "Disabled"
+msgstr ""
+
+#: includes/site-admin.php:64
+msgid "Use network level setting (set to <strong>%s</strong>)"
+msgstr ""
+
+#: includes/site-admin.php:71
+msgid "Require login"
+msgstr ""
+
+#: includes/site-admin.php:101
+msgid "enabled"
+msgstr ""
+
+#: includes/site-admin.php:102
+msgid "disabled"
+msgstr ""
+
+#: wds-network-require-login.php:367
+msgid "WDS Network Require Login requires the <a href=\"https://wordpress.org/plugins/cmb2/\">CMB2 plugin</a>, so it has been <a href=\"%s\">deactivated</a>."
+msgstr ""
