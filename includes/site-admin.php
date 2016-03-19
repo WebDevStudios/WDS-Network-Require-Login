@@ -97,7 +97,9 @@ class WDSNRL_Site_Admin extends WDSNRL_Admin_Base {
 	 * @return string  Network setting label
 	 */
 	public function network_setting() {
-		return $this->network_admin->get_option( 'enable_network_wide' ) ? 'enabled' : 'disabled';
+		return $this->network_admin->get_option( 'enable_network_wide' )
+			? __( 'enabled', 'wds-network-require-login' )
+			: __( 'disabled', 'wds-network-require-login' );
 	}
 
 	/**
