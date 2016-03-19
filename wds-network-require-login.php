@@ -43,7 +43,7 @@
  * @var  string               $url           Plugin URL
  * @var  string               $path          Plugin Path
  * @var  string               $current_url   Current URL
- * @var  WDSNRL_Admin         $admin         WDSNRL_Admin
+ * @var  WDSNRL_Site_Admin    $admin         WDSNRL_Site_Admin
  * @var  WDSNRL_Network_Admin $network_admin WDSNRL_Network_Admin
  */
 class WDS_Network_Require_Login {
@@ -108,7 +108,7 @@ class WDS_Network_Require_Login {
 	/**
 	 * Instance of WDSNRL_Admin
 	 *
-	 * @var WDSNRL_Admin
+	 * @var WDSNRL_Site_Admin
 	 * @since  0.1.0
 	 */
 	protected $admin = null;
@@ -178,7 +178,7 @@ class WDS_Network_Require_Login {
 	public function hooks() {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'get_header', array( $this, 'maybe_auth_redirect' ) );
-		add_action( 'rest_api_init', array( $this, 'rest_maybe_auth_redirect' ) );
+		add_filter( 'rest_authentication_errors', array( $this, 'rest_maybe_auth_redirect' ), 50 );
 
 		if ( is_multisite() ) {
 			$this->network_admin->hooks();
@@ -203,18 +203,36 @@ class WDS_Network_Require_Login {
 	 * Check if auth redirect should happen for the wp rest api
 	 *
 	 * @since  0.1.0
-	 * @return null
+	 * @return null|bool|WP_Error
 	 */
-	public function rest_maybe_auth_redirect() {
-		if ( is_user_logged_in() ) {
-			return;
+	public function rest_maybe_auth_redirect( $result ) {
+		// When $result is !== null, something else has authenticated the request.
+		if ( null !== $result ) {
+			return $result;
 		}
+
+		// Already good to go if the user is logged in.
+		if ( is_user_logged_in() ) {
+			return true;
+		}
+
+		/**
+		 * Filter whether a user is required to be logged in to access the REST API.
+		 *
+		 * @param bool $login_required Whether a user is required to be logged in.
+		 */
+		$login_required = apply_filters( 'wds_network_require_login_for_rest_api', $this->admin->is_required() );
 
 		// Option to override saved setting for just the wp rest api
-		if ( apply_filters( 'wds_network_require_login_for_rest_api', $this->admin->is_required() ) ) {
-			$this->auth_redirect();
+		if ( $login_required ) {
+			return new WP_Error(
+				'wds_rest_login_required',
+				__( 'You must be logged in to access the REST API.', 'wds-network-require-login' ),
+				array( 'status' => 403 )
+			);
 		}
 
+		return $result;
 	}
 
 	/**
