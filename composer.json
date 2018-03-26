@@ -1,0 +1,7 @@
+{
+	"name": "WebDevStudios/WDS-Network-Require-Login",
+	"type": "wordpress-plugin",
+	"require": {
+		"composer/installers": "~1.0"
+	}
+}
